@@ -1,18 +1,14 @@
 import openai
 import telebot
-from PIL import Image
 import io
 from io import BytesIO
 import os
 from dotenv import load_dotenv
-import re
 from sqlalchemy import create_engine, Column, String, Integer, Date, Time
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import select, exists, update
 import sqlalchemy
-import pandas as pd
-import numpy as np
 from datetime import datetime, timezone
 import time
 import json
