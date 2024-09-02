@@ -16,7 +16,9 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from telebot.types import BotCommand
 from googleapiclient.http import MediaIoBaseUpload
-from google_auth_oauthlib.flow import InstalledAppFlow
+import pickle
+from googleapiclient.discovery import build
+from google.auth.transport.requests import Request
 
 load_dotenv()
 
@@ -252,9 +254,16 @@ def create_run(message, user_input, thread_id, user_id):
 
 #получаем данные для аутентификации в гугле
 def get_credentials():
-    flow = InstalledAppFlow.from_client_secrets_file(
-        'credentials.json', SCOPES)
-    creds = flow.run_console()
+    
+    with open('token.pickle', 'rb') as token:
+        creds = pickle.load(token)
+
+    if creds and creds.expired and creds.refresh_token:
+        creds.refresh(Request()())
+    
+    # flow = InstalledAppFlow.from_client_secrets_file(
+    #     'credentials.json', SCOPES)
+    # creds = flow.run_console()
     # creds = flow.run_local_server(port=63515)  # Убедитесь, что порт совпадает
     return creds
 
