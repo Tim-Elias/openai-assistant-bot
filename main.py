@@ -253,7 +253,8 @@ def create_run(message, user_input, thread_id, user_id):
 def get_credentials():
     flow = InstalledAppFlow.from_client_secrets_file(
         'credentials.json', SCOPES)
-    creds = flow.run_local_server(port=63515)  # Убедитесь, что порт совпадает
+    creds = flow.run_console()
+    # creds = flow.run_local_server(port=63515)  # Убедитесь, что порт совпадает
     return creds
 
 #добавление данных из функции в гугл таблицы
