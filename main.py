@@ -259,7 +259,7 @@ def get_credentials():
         creds = pickle.load(token)
 
     if creds and creds.expired and creds.refresh_token:
-        creds.refresh(Request()())
+        creds.refresh(Request())
     
     # flow = InstalledAppFlow.from_client_secrets_file(
     #     'credentials.json', SCOPES)
