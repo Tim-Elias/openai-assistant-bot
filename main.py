@@ -159,11 +159,23 @@ def create_run(message, user_input, thread_id, user_id):
 
 #получаем данные для аутентификации в гугле
 def get_credentials():
-    with open('token.pickle', 'rb') as token:
-        creds = pickle.load(token)
+    creds = None
+    # Попытка загрузки токенов из файла, если он существует
+    if os.path.exists('token.pickle'):
+        with open('token.pickle', 'rb') as token:
+            creds = pickle.load(token)
 
-    if creds and creds.expired and creds.refresh_token:
-        creds.refresh(Request())
+    # Проверка, если токенов нет или они недействительны
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            # Если токен истек, используем refresh_token для его обновления
+            creds.refresh(Request())
+            # Сохраняем обновленные токены
+            with open('token.pickle', 'wb') as token:
+                pickle.dump(creds, token)
+        else:
+            raise Exception("Нет действительных токенов или refresh_token")
+
     return creds
 
 #добавление данных из функции в гугл таблицы
