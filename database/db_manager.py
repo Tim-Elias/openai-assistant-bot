@@ -76,9 +76,11 @@ class DatabaseManager:
         # Сохранение изменений в базе данных
         session.commit()
 
-    def exists(self, user_id, thread_id):
-        """Проверка существования ыук_шв"""
+    def exists(self, user_id):
+        """Проверка существования пользователя по user_id"""
+        session = self.Session()
         exists_query = session.query(exists().where(User.user_id == user_id)).scalar()
+        session.close()
         return exists_query
     
     def add_tokens(self, user_id, thread_id, prompt_tokens, completion_tokens, total_tokens,model):
