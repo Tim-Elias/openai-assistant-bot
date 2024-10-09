@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 credentials.json
 token.json
 
+=======
+
+credentials.json
+token.pickle
+>>>>>>> f0bd05890d3221cebd62cef5e5fb52e08bfb31be
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
